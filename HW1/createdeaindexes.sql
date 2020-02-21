@@ -1,0 +1,2 @@
+CREATE INDEX ix_transaction_date
+ON CSE532.DEA_NY(TRANSACTION_DATE);
