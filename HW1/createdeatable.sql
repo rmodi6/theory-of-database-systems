@@ -42,4 +42,4 @@ create table cse532.dea_ny
 	Reporter_family VARCHAR(100),
 	dos_str DOUBLE,
 	MME DOUBLE
-) COMPRESS YES in ts1;
+) COMPRESS YES;

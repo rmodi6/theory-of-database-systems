@@ -3,4 +3,4 @@ create table cse532.zippop (
 	county SMALLINT,
 	geoid INTEGER,
 	zpop INTEGER
-) in ts1;
+);
