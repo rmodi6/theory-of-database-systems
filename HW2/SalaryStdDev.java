@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SalaryStdDev {
 
@@ -14,22 +16,31 @@ public class SalaryStdDev {
 	}
 
 	public void printQueryResult(String sql) throws SQLException {
-		PreparedStatement preparedStatement = null;
+		Statement statement = null;
 		ResultSet resultSet = null;
 		try {
-			preparedStatement = con.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
+			statement = con.createStatement();
+			resultSet = statement.executeQuery(sql);
 
+			List<Double> salaryList = new ArrayList<>();
 			while (resultSet.next()) {
-				System.out.println("Standard deviation of salary: " + resultSet.getDouble("SALARYSTDDEV"));
+				salaryList.add(resultSet.getDouble("salary"));
 			}
+
+			System.out.println("Standard deviation of salary: " + calculateStandardDeviation(salaryList));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			preparedStatement.close();
+			statement.close();
 			resultSet.close();
 		}
 
+	}
+
+	private double calculateStandardDeviation(List<Double> list) {
+		int n = list.size();
+		double avg = list.stream().mapToDouble(x -> x).sum() / n;
+		return Math.pow(list.stream().mapToDouble(x -> Math.pow(x - avg, 2)).sum() / n, 0.5);
 	}
 
 	public static void main(String[] args) {
@@ -43,7 +54,7 @@ public class SalaryStdDev {
 
 				dbURL = String.format(dbURL, databasename);
 
-				String sql = "select power(sum(power(SALARY - avg(SALARY) over (order by SALARY rows between unbounded preceding and unbounded following), 2)) over (order by SALARY rows between unbounded preceding and unbounded following) / count(SALARY) over (order by SALARY rows between unbounded preceding and unbounded following), 0.5) as SALARYSTDDEV from %s limit 1";
+				String sql = "select salary from %s";
 				sql = String.format(sql, tablename);
 				SalaryStdDev salaryStdDev = new SalaryStdDev();
 				salaryStdDev.setDBConnection(dbURL, user, password);
