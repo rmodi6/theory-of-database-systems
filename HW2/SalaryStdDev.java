@@ -45,7 +45,7 @@ public class SalaryStdDev {
 
 	public static void main(String[] args) {
 		try {
-			String dbURL = "jdbc:db2://172.17.0.2:50000/%s";
+			String dbURL = "jdbc:db2://localhost:50000/%s";
 			if (args.length == 4) {
 				String databasename = args[0];
 				String tablename = args[1];
