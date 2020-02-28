@@ -14,7 +14,4 @@ Within the command line, create the stored procedure using the following command
 ```bash
 db2 -td@ -f salary_std_dev_sp.sql
 ```
-Then execute the stored procedure using the call command as follows:
-```sql
-call salary_std_dev(?)
-```
+This will also call the stored procedure just created and return the output.
