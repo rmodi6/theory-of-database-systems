@@ -31,7 +31,7 @@ CREATE OR REPLACE PROCEDURE salary_std_dev(OUT SALARYSTDDEV DOUBLE)
         END WHILE;
         SET avg_salary = avg_salary / n;
 
-        -- Compute standard deviation --
+        -- Compute standard deviation using formula sqrt(sum((X - mu)^2) / n) --
         SET SALARYSTDDEV = 0;
         SET i = 1;
         WHILE i <= n DO
