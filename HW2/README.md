@@ -12,6 +12,6 @@ where `db2jcc4.jar` is the db2 jdbc dependency jar required for executing the co
 ## Stored Procedure
 Within the command line, create the stored procedure using the following command:
 ```bash
-db2 -td@ -f salary_std_dev_sp.sql
+db2 -td@ -f stddev.sql
 ```
 This will also call the stored procedure just created and return the output.
