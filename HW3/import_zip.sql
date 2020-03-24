@@ -1,11 +1,11 @@
-!erase zip.msg;
+!rm zip.msg;
 
 DROP TABLE cse532.uszip;
 
-!erase zip.msg;
- 
+!rm zip.msg;
+
 !db2se import_shape sample
--fileName         C:\data\zip\tl_2019_us_zcta510.shp
+-fileName         /database/HW3/tl_2019_us_zcta510/tl_2019_us_zcta510.shp
 -srsName          nad83_srs_1
 -tableSchema      cse532
 -tableName        uszip
@@ -13,7 +13,7 @@ DROP TABLE cse532.uszip;
 -client           1
 -messagesFile     zip.msg
 ;
- 
+
 !db2se register_spatial_column sample
 -tableSchema      cse532
 -tableName        uszip
@@ -22,6 +22,3 @@ DROP TABLE cse532.uszip;
 ;
  
  -- describe table cse532.uszip;
- 
- 
-
