@@ -8,8 +8,8 @@ Table below lists the execution times in ms for query 2 with and without indexes
 |       109        |      36      |         73          |
 
 ## Query 3
-Table below lists the execution times in seconds for query 3 with and without indexes:
+Table below lists the execution times for query 3 with and without indexes:
 
 |Without Index (s)|With Index (s)|Time Difference (ms)|
 |:---------------:|:------------:|:------------------:|
-|      1.96       |     1.83     |        130         |
+|      1.82       |     1.76     |         60         |
