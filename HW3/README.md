@@ -11,10 +11,14 @@ Table below lists the execution times in ms for query 2 with and without indexes
 ## Query 3
 
 ### Assumptions
-It is assumed that `ZCTA5CE10` column in the `CSE532.USZIP` table is the column containing data for the corresponding 
-zipcode. Also, some entries in the `ZIPCODE` column of `CSE532.FACILITY` table have 9 digit zipcodes of the format 
+Please note the following assumptions while finding zipcodes with no ER facilities:
+- It is assumed that `ZCTA5CE10` column in the `CSE532.USZIP` table is the column containing data for the corresponding 
+zipcode. 
+- Some entries in the `ZIPCODE` column of `CSE532.FACILITY` table have 9 digit zipcodes of the format 
 `xxxxx-xxxx`. To successfully join them with the USZIP table, `subtr` function is used to consider only the first 5 
-digits. Conversely, the result table has only unique 5 digit zipcodes from the FACILITY table.
+digits. Consequently, the result table has only unique 5 digit zipcodes from the FACILITY table.
+- There are 23 zipcodes in the FACILITY table that do not have an entry in the USZIP table and have no ER
+Department. Since it is not possible to find neighbors of these zipcodes, these are also included in the final output.
 
 ### Execution times
 Table below lists the execution times for query 3 with and without indexes:
