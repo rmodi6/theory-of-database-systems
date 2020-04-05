@@ -1,6 +1,11 @@
 # Homework 3
 
 ## Query 2
+### Assumptions
+Please note the following assumptions while finding nearest ER facility:
+- A buffer zone of **10 miles** is considered to find the nearest ER within this zone.
+- `STATUTE MILE` is used as the distance measure.
+
 ### Execution times
 Table below lists the execution times in ms for query 2 with and without indexes:
 
