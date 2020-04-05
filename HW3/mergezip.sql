@@ -33,7 +33,7 @@ BEGIN
         SELECT * FROM CSE532.MERGED_ZIPCODES;
 
     -- Compute average population per zipcode --
-    SET avg_zpop = (SELECT AVG(ZPOP) FROM CSE532.ZIPPOP);
+    SET avg_zpop = (SELECT AVG(ZPOP) FROM CSE532.ZIPPOP WHERE ZPOP > 0);
 
     -- Iterate over zipcodes with population less than average population --
     FOR v1 AS c1 CURSOR WITH HOLD FOR
