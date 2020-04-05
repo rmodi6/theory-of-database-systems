@@ -39,7 +39,9 @@ Table below lists the execution times for query 3 with and without indexes:
 ## Query 5
 ### Assumptions
 Please note the following assumptions while merging zipcodes:
-- Only zipcodes having `population > 0` and corresponding shape in the `USZIP` table are considered for merging.
+- The zipcodes in `ZIPPOP` table do not have preceding 0's. Hence, I have concatenated preceding 0's to make the 
+zipcode of length 5.
+- Only zipcodes having `population > 0` and having corresponding shape in the `USZIP` table are considered for merging.
 - Some zipcodes do not have a neighbor in `USZIP` table and so they cannot be merged but are included in the final 
 result.
 
