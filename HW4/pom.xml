@@ -40,9 +40,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <finalName>Covid19</finalName>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Covid19_1</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
