@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 public class Covid19_2 {
 
@@ -37,23 +36,19 @@ public class Covid19_2 {
         }
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            StringTokenizer itr = new StringTokenizer(value.toString());
-            while (itr.hasMoreTokens()) {
-                String line = itr.nextToken();
-                String[] split = line.split(",");
-                Date date;
-                try {
-                    date = simpleDateFormat.parse(split[0]);
-                } catch (ParseException | IndexOutOfBoundsException e) {
-                    date = Calendar.getInstance().getTime();
-                }
-                if (split.length == 4
-                        && (date.before(endDate) || date.equals(endDate))
-                        && (date.after(startDate) || date.equals(startDate))) {
-                    location.set(split[1]);
-                    newDeaths.set(Integer.parseInt(split[3]));
-                    context.write(location, newDeaths);
-                }
+            String[] split = value.toString().split(",");
+            Date date;
+            try {
+                date = simpleDateFormat.parse(split[0]);
+            } catch (ParseException | IndexOutOfBoundsException e) {
+                date = Calendar.getInstance().getTime();
+            }
+            if (split.length == 4
+                    && (date.before(endDate) || date.equals(endDate))
+                    && (date.after(startDate) || date.equals(startDate))) {
+                location.set(split[1]);
+                newDeaths.set(Integer.parseInt(split[3]));
+                context.write(location, newDeaths);
             }
         }
     }

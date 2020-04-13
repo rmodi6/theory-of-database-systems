@@ -9,7 +9,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class Covid19_1 {
 
@@ -26,16 +25,12 @@ public class Covid19_1 {
         }
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            StringTokenizer itr = new StringTokenizer(value.toString());
-            while (itr.hasMoreTokens()) {
-                String line = itr.nextToken();
-                String[] split = line.split(",");
-                if (split.length == 4 && split[0].startsWith("2020")
-                        && (includeWorld || (!"world".equalsIgnoreCase(split[1]) && !"international".equalsIgnoreCase(split[1])))) {
-                    location.set(split[1]);
-                    newCases.set(Integer.parseInt(split[2]));
-                    context.write(location, newCases);
-                }
+            String[] split = value.toString().split(",");
+            if (split.length == 4 && split[0].startsWith("2020")
+                    && (includeWorld || (!"world".equalsIgnoreCase(split[1]) && !"international".equalsIgnoreCase(split[1])))) {
+                location.set(split[1]);
+                newCases.set(Integer.parseInt(split[2]));
+                context.write(location, newCases);
             }
         }
     }
