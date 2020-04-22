@@ -77,9 +77,9 @@ public class Covid19_3 {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 2) {
+        if (args.length == 3) {
             Configuration conf = new Configuration();
-            DistributedCache.addCacheFile(new Path("hdfs://127.0.0.1:8020/cse532/cache/populations.csv").toUri(), conf);
+            DistributedCache.addCacheFile(new Path(args[1]).toUri(), conf);
 
             Job job = Job.getInstance(conf, "Covid19_3");
             job.setJarByClass(Covid19_3.class);
@@ -89,11 +89,11 @@ public class Covid19_3 {
             job.setOutputValueClass(IntWritable.class);
 
             FileInputFormat.addInputPath(job, new Path(args[0]));
-            FileOutputFormat.setOutputPath(job, new Path(args[1]));
+            FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
             System.exit(job.waitForCompletion(true) ? 0 : 1);
         } else {
-            System.out.println("Usage: hadoop jar Covid19.jar Covid19_3 path/to/input path/to/output");
+            System.out.println("Usage: hadoop jar Covid19.jar Covid19_3 path/to/input fully_qualified_path/to/cache_file path/to/output");
         }
     }
 }
