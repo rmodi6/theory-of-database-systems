@@ -56,7 +56,7 @@ public class Covid19_3 {
                 while ((line = br.readLine()) != null) {
                     try {
                         String[] split = line.split(",");
-                        locationToPopulationMap.put(split[1].replaceAll("_", " "), Long.parseLong(split[4]));
+                        locationToPopulationMap.put(split[1], Long.parseLong(split[4]));
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                         e.printStackTrace();
                     }
