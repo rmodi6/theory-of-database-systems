@@ -1,5 +1,4 @@
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -46,7 +45,7 @@ public class Covid19_3 {
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             super.setup(context);
-            URI[] cacheFiles = DistributedCache.getCacheFiles(context.getConfiguration());
+            URI[] cacheFiles = context.getCacheFiles();
 
             if (cacheFiles.length > 0) {
                 FileSystem fileSystem = FileSystem.get(context.getConfiguration());
@@ -79,9 +78,9 @@ public class Covid19_3 {
     public static void main(String[] args) throws Exception {
         if (args.length == 3) {
             Configuration conf = new Configuration();
-            DistributedCache.addCacheFile(new Path(args[1]).toUri(), conf);
 
             Job job = Job.getInstance(conf, "Covid19_3");
+            job.addCacheFile(new Path(args[1]).toUri());
             job.setJarByClass(Covid19_3.class);
             job.setMapperClass(TokenizerMapper.class);
             job.setReducerClass(IntSumReducer.class);
