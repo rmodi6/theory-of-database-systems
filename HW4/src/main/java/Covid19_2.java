@@ -11,7 +11,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Covid19_2 {
@@ -41,7 +40,7 @@ public class Covid19_2 {
             try {
                 date = simpleDateFormat.parse(split[0]);
             } catch (ParseException | IndexOutOfBoundsException e) {
-                date = Calendar.getInstance().getTime();
+                return;
             }
             if (split.length == 4
                     && (date.before(endDate) || date.equals(endDate))
