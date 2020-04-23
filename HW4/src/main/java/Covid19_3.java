@@ -58,7 +58,7 @@ public class Covid19_3 {
                         String[] split = line.split(",");
                         locationToPopulationMap.put(split[1], Long.parseLong(split[4]));
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        e.printStackTrace();
+                        System.out.println("Exception for line: " + line);
                     }
                 }
             }
