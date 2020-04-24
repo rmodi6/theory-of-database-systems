@@ -33,7 +33,7 @@ public class Covid19_3 {
                     context.write(location, newCases);
                 }
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                System.out.println("Exception for line: " + value.toString());
             }
         }
     }
