@@ -73,7 +73,6 @@ public class Covid19_2 {
             Job job = Job.getInstance(conf, "Covid19_2");
             job.setJarByClass(Covid19_2.class);
             job.setMapperClass(TokenizerMapper.class);
-            job.setCombinerClass(IntSumReducer.class);
             job.setReducerClass(IntSumReducer.class);
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(IntWritable.class);
