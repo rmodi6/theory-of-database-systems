@@ -25,12 +25,13 @@ public class Covid19_2 {
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             super.setup(context);
+            // Read the start and end dates
             String[] dates = context.getConfiguration().getStrings("dates");
             try {
                 startDate = simpleDateFormat.parse(dates[0]);
                 endDate = simpleDateFormat.parse(dates[1]);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            } catch (ParseException e) { // Throw an exception if dates are in invalid format
+                throw new IOException(e.getMessage(), e);
             }
         }
 
@@ -39,12 +40,13 @@ public class Covid19_2 {
             Date date;
             try {
                 date = simpleDateFormat.parse(split[0]);
-            } catch (ParseException | IndexOutOfBoundsException e) {
+            } catch (ParseException | IndexOutOfBoundsException e) { // Skip lines with invalid dates including header
                 return;
             }
+            // Only consider lines with dates within the specified interval
             if (split.length == 4
-                    && (date.before(endDate) || date.equals(endDate))
-                    && (date.after(startDate) || date.equals(startDate))) {
+                    && (date.after(startDate) || date.equals(startDate))
+                    && (date.before(endDate) || date.equals(endDate))) {
                 location.set(split[1]);
                 newDeaths.set(Integer.parseInt(split[3]));
                 context.write(location, newDeaths);
@@ -57,6 +59,7 @@ public class Covid19_2 {
 
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
+            // Sum new deaths for each location
             for (IntWritable val : values) {
                 sum += val.get();
             }
@@ -68,6 +71,7 @@ public class Covid19_2 {
     public static void main(String[] args) throws Exception {
         if (args.length == 4) {
             Configuration conf = new Configuration();
+            // Set the start and end dates string
             conf.setStrings("dates", args[1], args[2]);
 
             Job job = Job.getInstance(conf, "Covid19_2");

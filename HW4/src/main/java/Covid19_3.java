@@ -32,7 +32,7 @@ public class Covid19_3 {
                     newCases.set(Integer.parseInt(split[2]));
                     context.write(location, newCases);
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // Ignore invalid lines including header
                 System.out.println("Exception for line: " + value.toString());
             }
         }
@@ -47,7 +47,8 @@ public class Covid19_3 {
             super.setup(context);
             URI[] cacheFiles = context.getCacheFiles();
 
-            if (cacheFiles.length > 0) {
+            // Read cached population file into locationToPopulation HashMap
+            if (cacheFiles != null && cacheFiles.length > 0) {
                 FileSystem fileSystem = FileSystem.get(context.getConfiguration());
                 Path path = new Path(cacheFiles[0].toString());
                 BufferedReader br = new BufferedReader(new InputStreamReader(fileSystem.open(path)));
@@ -57,6 +58,7 @@ public class Covid19_3 {
                         String[] split = line.split(",");
                         locationToPopulationMap.put(split[1], Long.parseLong(split[4]));
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        // Ignore invalid lines including header
                         System.out.println("Exception for line: " + line);
                     }
                 }
@@ -64,11 +66,14 @@ public class Covid19_3 {
         }
 
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            // If location is present in cached file hashmap
             if (locationToPopulationMap.containsKey(key.toString())) {
                 int sum = 0;
+                // Sum the new cases for location
                 for (IntWritable val : values) {
                     sum += val.get();
                 }
+                // Compute new cases per million population
                 result.set(sum * 1_000_000.0 / locationToPopulationMap.get(key.toString()));
                 context.write(key, result);
             }
@@ -80,7 +85,7 @@ public class Covid19_3 {
             Configuration conf = new Configuration();
 
             Job job = Job.getInstance(conf, "Covid19_3");
-            job.addCacheFile(new Path(args[1]).toUri());
+            job.addCacheFile(new Path(args[1]).toUri()); // Add population file to Distributed Cache
             job.setJarByClass(Covid19_3.class);
             job.setMapperClass(TokenizerMapper.class);
             job.setReducerClass(IntSumReducer.class);

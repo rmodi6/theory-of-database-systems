@@ -21,11 +21,13 @@ public class Covid19_1 {
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             super.setup(context);
+            // Read the includeWorld flag for the mapper
             includeWorld = context.getConfiguration().getBoolean("includeWorld", false);
         }
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String[] split = value.toString().split(",");
+            // Ignore 2019 dates as well as header line and ignore "world/international" depending on flag
             if (split.length == 4 && split[0].startsWith("2020")
                     && (includeWorld || (!"world".equalsIgnoreCase(split[1]) && !"international".equalsIgnoreCase(split[1])))) {
                 location.set(split[1]);
@@ -40,6 +42,7 @@ public class Covid19_1 {
 
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
+            // Sum the new cases for each location
             for (IntWritable val : values) {
                 sum += val.get();
             }
@@ -51,6 +54,7 @@ public class Covid19_1 {
     public static void main(String[] args) throws Exception {
         if (args.length == 3) {
             Configuration conf = new Configuration();
+            // Set the includeWorld flag
             conf.setBoolean("includeWorld", "true".equalsIgnoreCase(args[1]));
 
             Job job = Job.getInstance(conf, "Covid19_1");
