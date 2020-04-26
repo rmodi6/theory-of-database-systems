@@ -30,7 +30,8 @@ public class Covid19_2 {
             try {
                 startDate = simpleDateFormat.parse(dates[0]);
                 endDate = simpleDateFormat.parse(dates[1]);
-            } catch (ParseException e) { // Throw an exception if dates are in invalid format
+            } catch (ParseException e) {
+                // Throw an exception if dates are in invalid format
                 throw new IOException(e.getMessage(), e);
             }
         }
@@ -71,7 +72,22 @@ public class Covid19_2 {
     public static void main(String[] args) throws Exception {
         if (args.length == 4) {
             Configuration conf = new Configuration();
-            // Set the start and end dates string
+            // Validate dates
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = null, endDate = null;
+            try {
+                startDate = simpleDateFormat.parse(args[1]);
+                endDate = simpleDateFormat.parse(args[2]);
+            } catch (ParseException e) {
+                System.out.println("Start and End dates are in invalid format. Use yyyy-MM-dd");
+                System.exit(0);
+            }
+            if (startDate.after(endDate)) {
+                System.out.println("Start date is after End date.");
+                System.exit(0);
+            }
+
+            // Set the start and end dates string to be read in Mapper
             conf.setStrings("dates", args[1], args[2]);
 
             Job job = Job.getInstance(conf, "Covid19_2");
