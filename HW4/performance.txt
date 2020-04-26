@@ -1,0 +1,13 @@
+The performance of both Hadoop and Spark tasks was computed using the time command line tool.
+This tool reports the time taken to execute a command on the terminal.
+
+Results:
+1. Task 2 (Deaths in specified interval)
+- Hadoop: 19.84 secs
+- Spark: 6.67 secs
+- Difference: Spark was 13.17 secs faster than Hadoop
+
+2. Task 3 (New cases per million population)
+- Hadoop: 20.1 secs
+- Spark: 5.44 secs
+- Difference: Spark was 14.66 secs faster than Hadoop
