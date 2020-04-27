@@ -1,4 +1,4 @@
-The performance of both Hadoop and Spark tasks was computed using the time command line tool.
+The performance of both Hadoop and Spark tasks was computed using the 'time' command line tool.
 This tool reports the time taken to execute a command on the terminal.
 
 Results:

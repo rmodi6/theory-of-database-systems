@@ -1,5 +1,5 @@
 # Homework 4: Covid19 Data Analysis on Hadoop
-The following commands were used to run the code files assuming the class files were compiled into a jar called 
+The following commands were used to run the code files assuming the class files were packaged into a jar called 
 `Covid19-1.0.jar`
 ### Commands
 #### Hadoop
