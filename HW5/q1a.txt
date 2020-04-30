@@ -1,0 +1,15 @@
+System ID: /home/rmodi/Documents/20_Spring/CSE532/HW5/purchaseorders.xml
+Description: 5001
+XPath location: /PurchaseOrders[1]/PurchaseOrder[2]/@PoNum
+Start location: 16:69
+
+System ID: /home/rmodi/Documents/20_Spring/CSE532/HW5/purchaseorders.xml
+Description: 5002
+XPath location: /PurchaseOrders[1]/PurchaseOrder[3]/@PoNum
+Start location: 36:69
+
+System ID: /home/rmodi/Documents/20_Spring/CSE532/HW5/purchaseorders.xml
+Description: 5006
+XPath location: /PurchaseOrders[1]/PurchaseOrder[6]/@PoNum
+Start location: 78:69
+
