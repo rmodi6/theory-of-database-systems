@@ -1,0 +1,10 @@
+System ID: /home/rmodi/Documents/20_Spring/CSE532/HW5/customerinfo.xml
+Description: Matt Foreman
+XPath location: /customers[1]/customerinfo[5]/name[1]/text()[1]
+Start location: 46:8
+
+System ID: /home/rmodi/Documents/20_Spring/CSE532/HW5/customerinfo.xml
+Description: Larry Menard
+XPath location: /customers[1]/customerinfo[6]/name[1]/text()[1]
+Start location: 61:8
+
